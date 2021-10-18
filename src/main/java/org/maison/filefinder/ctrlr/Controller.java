@@ -1,10 +1,6 @@
 package org.maison.filefinder.ctrlr;
 
 import org.maison.filefinder.model.*;
-import org.maison.filefinder.model.criteria.DateSearchCriteria;
-import org.maison.filefinder.model.criteria.DuplicateSearchCriteria;
-import org.maison.filefinder.model.criteria.PatternSearchCriteria;
-import org.maison.filefinder.model.criteria.SizeSearchCriteria;
 import org.maison.filefinder.utils.RealOpener;
 import org.maison.filefinder.view.MainWindow;
 
@@ -13,71 +9,72 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
+
+/**
+ * Controller for the application.
+ * It is responsible to laucnh the searches.
+ */
 public class Controller implements FileOpener {
 
     private FileSearchService finder;
     private MainWindow window;
-    private String editorPath = null;
-    private String explorerPath = null;
     private String configFile;
     private RealOpener realOpener;
 
-
+    /**
+    * Pour les tests unitaires remplace le fichier de configuration
+    * @param configFile String Chemin absolu vers le fichier de configuration
+     */
     public void setConfigForTests(String configFile) {
     	this.configFile = configFile;
     }
-    
+
+    /**
+     * Methode de lancement de la recherche à partir d'une extension de fichier
+     * @param directory
+     * @param extension
+     * @throws FileFinderException
+     */
     public void searchWithExtension(String directory, String extension) throws FileFinderException{
     	finder.searchWithExtension(directory, extension);
     }
-    
+
+    /**
+     * Methode de lancement de la recherche à partir d'un nom de fichier
+     * @param directory
+     * @param filename
+     * @throws FileFinderException
+     */
     public void searchWithFile(String directory, String filename) throws FileFinderException{
     	finder.searchWithFile(directory, filename);
     }
-       
-    
+
+    /**
+     * Ajoute un observeur de recherche
+     * @param sl {@link SearchListener}
+     */
     public void addResultListener(SearchListener sl) {
     	finder.addResultsListener(sl);
     }
-    
+
+    /**
+     * Constructeur
+     * @throws Exception
+     */
     public Controller() throws Exception{
         finder = new FileSearchService();
-        finder.addCriteria(new SizeSearchCriteria(-1,-1, FileSearchService.UNIT.KOS));
 
-        finder.addCriteria(new DateSearchCriteria(null, null));
-
-        finder.addCriteria(new PatternSearchCriteria());
-
-        DuplicateSearchCriteria duplicateSearchCriteria = new DuplicateSearchCriteria();
-
-        finder.addCriteria(duplicateSearchCriteria);
+        SearchConfiguration.apply(finder);
 
         window = new MainWindow(finder, this);
 
         finder.addResultsListener(window);
-        finder.addResultsListener(new SearchListener() {
-            @Override
-            public void searchStarted() {
-                System.out.println("ControllerStart...");
-            }
-
-            @Override
-            public void searchEnded() {
-                System.out.println("ControllersearchEnded Stop.");
-            }
-
-            @Override
-            public void addResult(String results, long size, String date) {
-                System.out.println("Fichier:" + results + " Taille:" + size + " Date:" + date);
-            }
-
-            @Override
-            public void reset() {
-                System.out.println("ControllerReset.");
-            }
-        });
     }
 
+    /**
+     * Verifie si le fichier de configuration est bien rempli
+     * @throws Exception
+     */
     public void checkEditor() throws Exception  {
     	InputStream stream;    	
     	if (this.configFile!=null) {
@@ -104,15 +101,28 @@ public class Controller implements FileOpener {
         this.realOpener = new RealOpener(explorer, path , ext);
     }
 
+    /**
+     * Affiche la fenetre
+     */
     public void start(){
         this.window.display();
     }
 
 
+    /**
+     * Demande l'ouverture d'un fichier
+     * @param fileToOpen Fichier uvrir
+     * @throws Exception
+     */
     public void open(String fileToOpen) throws Exception {
         this.realOpener.open(fileToOpen);
     }
 
+    /**
+     * Méthode principale de l application
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception{
          Controller ctrl = new Controller();
             ctrl.start();
