@@ -11,8 +11,8 @@ import java.util.Properties;
 
 
 /**
- * Controller for the application.
- * It is responsible to laucnh the searches.
+ * Controleur de l application.
+ * Responsable de lancer les recherches.
  */
 public class Controller implements FileOpener {
 
