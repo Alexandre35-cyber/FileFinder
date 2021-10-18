@@ -2,21 +2,36 @@ package org.maison.filefinder.model.criteria;
 
 import java.time.LocalDate;
 
-
+/**
+ * Critere de recherche sur la date de creation d un fichier
+ */
 public class DateSearchCriteria extends SearchCriteria {
 
     private LocalDate minDate;
     private LocalDate maxDate;
 
+    /**
+     * Constructeur
+     * @param minDate
+     * @param maxDate
+     */
     public DateSearchCriteria(LocalDate minDate, LocalDate maxDate) {
         this.minDate = minDate;
         this.maxDate = maxDate;
     }
 
+    /**
+     * Getter date min
+     * @return @link {java.time.LocalDate}
+     */
     public LocalDate getMinDate() {
         return minDate;
     }
 
+    /**
+     * Setter date min
+     * @param minDate @link {java.time.LocalDate}
+     */
     public void setMinDate(LocalDate minDate) throws Exception {
         this.minDate = minDate;
         if (maxDate != null){
@@ -26,15 +41,27 @@ public class DateSearchCriteria extends SearchCriteria {
         }
     }
 
+    /**
+     * Remise a zero des dates
+     */
     public void reset(){
         maxDate = null;
         minDate = null;
     }
 
+    /**
+     * Retourne la date max
+     * @return
+     */
     public LocalDate getMaxDate() {
         return maxDate;
     }
 
+    /**
+     * Positionne la date max
+     * @param maxDate
+     * @throws Exception
+     */
     public void setMaxDate(LocalDate maxDate) throws Exception {
         this.maxDate = maxDate;
         if (minDate != null){
@@ -44,6 +71,11 @@ public class DateSearchCriteria extends SearchCriteria {
         }
     }
 
+    /**
+     * La prise en compte du critere se fait dans un visiteur
+     * @param visitor
+     * @throws Exception
+     */
     public void accept(SearchCriteriaVisitor visitor) throws Exception {
         visitor.visitDateCriteria(this);
     }
