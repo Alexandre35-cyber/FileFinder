@@ -111,17 +111,9 @@ public class Controller implements FileOpener {
 
     public void open(String fileToOpen) throws Exception {
         this.realOpener.open(fileToOpen);
-
-        if (this.editorPath !=null){
-        	System.out.println("File:"+ fileToOpen + "Editor Path:" + this.editorPath);
-            Runtime.getRuntime().exec(new String[]{this.editorPath, fileToOpen});
-        }else{
-            System.err.println("Pas d'editeur configuré.");
-        }
     }
 
     public static void main(String[] args) throws Exception{
-
          Controller ctrl = new Controller();
             ctrl.start();
         try {
