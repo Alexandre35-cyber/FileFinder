@@ -14,18 +14,18 @@ public class RealOpener {
         this.explorer = explorer;
         this.editorPath = editorPath;
         this.extensions = ext;
-        for (int i=0; i<ext.length;i++){
-            System.out.println("EXT:" + ext[i]);
-        }
     }
 
     public void open(String fileToOpen)  throws Exception{
         String ext = fileToOpen.substring(fileToOpen.lastIndexOf('.')+1);
         boolean forbiddenExt = false;
-        for (int i=0; i< this.extensions.length; i++){
-            if (this.extensions[i].equals(ext)){
-                forbiddenExt = true;
-                break;
+
+        if (!isExtensionsNull()) {
+            for (int i = 0; i < this.extensions.length; i++) {
+                if (this.extensions[i].equals(ext)) {
+                    forbiddenExt = true;
+                    break;
+                }
             }
         }
 
@@ -37,7 +37,6 @@ public class RealOpener {
                 Runtime.getRuntime().exec(new String[]{this.explorer, directory});
             }
         } else {
-
             if (this.editorPath != null) {
                 System.out.println("File:" + fileToOpen + "Editor Path:" + this.editorPath);
                 Runtime.getRuntime().exec(new String[]{this.editorPath, fileToOpen});
@@ -46,4 +45,8 @@ public class RealOpener {
             }
         }
     }
+    public boolean isExtensionsNull(){
+        return this.extensions == null;
+    }
+
 }

@@ -97,8 +97,12 @@ public class Controller implements FileOpener {
             throw new Exception("No explorer configured.");
         }
         String extensions = (String) p.get("extensions.forbidden");
-        String[] ext = extensions.split(",");
-        this.realOpener = new RealOpener(explorer, path , ext);
+        if (extensions != null) {
+            this.realOpener = new RealOpener(explorer, path, extensions.split(","));
+        }
+        else{
+            throw new Exception("No extensions.forbidden field configured.");
+        }
     }
 
     /**

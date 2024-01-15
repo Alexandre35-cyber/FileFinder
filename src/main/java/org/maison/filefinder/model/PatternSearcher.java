@@ -51,6 +51,7 @@ public class PatternSearcher {
 
     public static boolean isBinary(File currentFile) {
         try {
+            if (currentFile.getAbsolutePath().endsWith(".txt")) return false;
             FileInputStream in = new FileInputStream(currentFile);
             int size = in.available();
             if (size > 1024) size = 1024;

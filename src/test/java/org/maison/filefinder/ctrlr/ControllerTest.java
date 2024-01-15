@@ -74,7 +74,38 @@ public class ControllerTest {
 		}
 		
 	}
-	
+
+	@Test
+	public void testNoEditorConfigured() throws Exception {
+		String nomFic = "c:\\Tmp\\test\\config-no-explorer.prop";
+		ControllerTest.creerFichierSansReelExecutable(nomFic,"C:/Program Files/Notepad++/notepad++.exe");
+
+		this.ctrlr.setConfigForTests(nomFic);
+		try {
+			this.ctrlr.checkEditor();
+		} catch (Exception e) {
+			Assert.assertEquals( "No explorer configured.", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testNoExtensions() throws Exception {
+		String nomFic = "c:\\Tmp\\test\\config-no-ext.prop";
+		ControllerTest.creerFichierSansExt(nomFic);
+		this.ctrlr.setConfigForTests(nomFic);
+		try {
+			this.ctrlr.checkEditor();
+			Assert.fail("Devrait planter.");
+		} catch (Exception e) {
+			Assert.assertEquals( "No extensions.forbidden field configured.", e.getMessage());
+		}
+
+		nomFic = "c:\\Tmp\\test\\config-ext-vides.prop";
+		ControllerTest.creerFichierExtVides(nomFic);
+		this.ctrlr.setConfigForTests(nomFic);
+		this.ctrlr.checkEditor();
+	}
+
 	@Test
 	public void testOuvrirFichier() throws Exception {
 		String fic = "c:\\Tmp\\test\\mon_fichier.txt";
@@ -232,4 +263,21 @@ public class ControllerTest {
 	}
 
 
+	public static void creerFichierSansExt(String nomFichier) throws IOException {
+		Writer fw = new FileWriter(nomFichier);
+		fw.append("editor.executable=C:/Program Files/Notepad++/notepad++.exe\n");
+		fw.append("explorer.path=C:/Windows/explorer.exe\n");
+		fw.flush();
+		fw.close();
+	}
+
+
+	public static void creerFichierExtVides(String nomFichier) throws IOException {
+		Writer fw = new FileWriter(nomFichier);
+		fw.append("editor.executable=C:/Program Files/Notepad++/notepad++.exe\n");
+		fw.append("explorer.path=C:/Windows/explorer.exe\n");
+		fw.append("extensions.forbidden=\n");
+		fw.flush();
+		fw.close();
+	}
 }
