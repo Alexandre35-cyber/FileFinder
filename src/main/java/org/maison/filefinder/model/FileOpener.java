@@ -1,8 +1,9 @@
 package org.maison.filefinder.model;
 
 import java.io.File;
+import java.net.URL;
 
 public interface  FileOpener {
 
-    void open(String fileToOpen)  throws Exception;
+    void open(URL fileToOpen)  throws Exception;
 }

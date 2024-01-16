@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -122,6 +124,10 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
     }
 
 
+    public void doClick(String filepath) throws MalformedURLException {
+        this.area.fireHyperlinkUpdate(new HyperlinkEvent(this, HyperlinkEvent.EventType.ACTIVATED, new URL(filepath)));
+    }
+
     private JPanel createGraphicalCriterias() {
         int cpty = 0;
         JPanel criteriaPanel = new JPanel();
@@ -199,10 +205,8 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
         area.addHyperlinkListener(new HyperlinkListener() {
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e) {
-                String url = e.getURL().toString();
 
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-
                     if (System.getProperty("os.name").toLowerCase().contains("windows")) {
                         try {
                             if (e.getURL().toString().contains("file-sort")) {
@@ -226,7 +230,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
                             }
                             //Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "+ e.getURL());                            
 
-                            MainWindow.this.opener.open(e.getURL().getFile().substring(1));
+                            MainWindow.this.opener.open(e.getURL());
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
@@ -288,10 +292,15 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
         p.add(label, c);
         c.insets = new Insets(0,5,0,0);
         textFieldDirectory = new JTextField();
+
         //textFieldDirectory.addActionListener(getActionListener());
         textFieldDirectory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (!validatePath(textFieldDirectory.getText())){
+                    return;
+                }
                 File file = new File(textFieldDirectory.getText());
                 if (file.isDirectory() && file.exists()) {
                     System.out.println("Repertoire entré: " + file.getAbsolutePath());
@@ -316,8 +325,14 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
 
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = chooser.getSelectedFile();
-                    textFieldDirectory.setText(file.getAbsolutePath());
-                    UserSelectionMgr.get().setDirectorySelected(textFieldDirectory.getText());
+                    if (validatePath(file.getAbsolutePath())) {
+                        textFieldDirectory.setText(file.getAbsolutePath());
+                        UserSelectionMgr.get().setDirectorySelected(textFieldDirectory.getText());
+                    }else{
+                        textFieldDirectory.setText("");
+                        UserSelectionMgr.get().setDirectorySelected(null);
+                    }
+
                 }
 
             }
@@ -330,6 +345,19 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
         p.add(button, c);
 
         return p;
+    }
+
+
+    private boolean validatePath(String filepath){
+        String regexp = "^(.*)[ ](.*)$";
+        System.out.println("TEXT:" + filepath);
+        if (filepath.matches(regexp)){
+            JOptionPane.showMessageDialog(null,
+                    "Les répertoires  un espace ne sont pas autorisés.",
+                    "Espace dans le nom d'un répertoire", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     private ActionListener getActionListener() {

@@ -37,7 +37,7 @@ public class PatternSearcher {
                     System.out.println(">>>"+line);
                     if (line.length() == 1)
                             continue;
-                    if (line.indexOf(pattern) !=-1) {
+                    if (line.contains(pattern)) {
                         return true;
                     }
                 }

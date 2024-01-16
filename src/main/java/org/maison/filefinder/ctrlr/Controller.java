@@ -7,6 +7,7 @@ import org.maison.filefinder.view.MainWindow;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 
@@ -118,8 +119,8 @@ public class Controller implements FileOpener {
      * @param fileToOpen Fichier uvrir
      * @throws Exception
      */
-    public void open(String fileToOpen) throws Exception {
-        this.realOpener.open(fileToOpen);
+    public void open(URL fileToOpen) throws Exception {
+        this.realOpener.open(fileToOpen.getFile().substring(1));
     }
 
     /**

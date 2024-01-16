@@ -73,20 +73,36 @@ public class PreferencesDialog extends JDialog {
         c.weightx = 0.8;
         getContentPane().add(txtField, c);
 
-        JButton buttonReset = new JButton("Valider");
+        JButton buttonValidate = new JButton("Valider");
         c.gridx = 1;
         c.gridy = 1;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 0.5;
-        buttonReset.addActionListener(e -> {
+        buttonValidate.addActionListener(e -> {
             System.out.println("Ok ");
             if (!"".equals(PreferencesDialog.this.txtField.getText())) {
                 this.search.setLignesMax(Integer.parseInt(PreferencesDialog.this.txtField.getText()));
+                PreferencesDialog.this.setVisible(false);
             }
         });
-        getContentPane().add(buttonReset, c);
+        getContentPane().add(buttonValidate, c);
         pack();
+    }
+
+    public static void main(String[] args) {
+        PreferencesDialog dialog = new PreferencesDialog(new JFrame(), new Preferences() {
+            @Override
+            public void setLignesMax(int lignesMax) {
+
+            }
+
+            @Override
+            public int getLignesMax() {
+                return 100;
+            }
+        });
+        dialog.setVisible(true);
     }
 
 }

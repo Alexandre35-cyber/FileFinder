@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,7 +51,7 @@ public class ControllerTest {
 		} catch (Exception e) {			
 		}	
 			
-		this.ctrlr.open("D:\\Projets\\JAVA\\ARKEA\\VENDREDI\\OperationServiceBack\\Dockerfile");
+		this.ctrlr.open(new URL("D:\\Projets\\JAVA\\ARKEA\\VENDREDI\\OperationServiceBack\\Dockerfile"));
 	}
 	
 	@Test
@@ -114,7 +115,7 @@ public class ControllerTest {
 		fw.flush();
 		fw.close();
 		this.ctrlr.checkEditor();
-		this.ctrlr.open(fic);
+		this.ctrlr.open(new URL(fic));
 	}
 	
 
