@@ -1,7 +1,10 @@
 package org.maison.filefinder.model.criteria;
 
-public abstract class SearchCriteria {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public abstract class SearchCriteria {
+    protected  Logger LOGGER = LoggerFactory.getLogger(SearchCriteria.class.getName());
     private boolean active = false;
 
     public abstract String getName();
@@ -11,7 +14,7 @@ public abstract class SearchCriteria {
     }
 
     public void setActive(boolean active){
-        System.out.println("Application du critère " + getName() + " " + active);
+    	LOGGER.debug("Application du critère " + getName() + " " + active);
         this.active = active;
     }
 

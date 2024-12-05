@@ -1,12 +1,13 @@
 package org.maison.filefinder.view;
 
-import javax.swing.*;
+import java.awt.Toolkit;
+import java.text.DecimalFormat;
+
+import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import java.awt.*;
-import java.text.DecimalFormat;
 
 public class UIUtils {
 

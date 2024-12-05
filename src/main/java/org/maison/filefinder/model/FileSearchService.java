@@ -1,10 +1,5 @@
 package org.maison.filefinder.model;
 
-import org.maison.filefinder.model.criteria.DuplicateSearchCriteria;
-import org.maison.filefinder.model.criteria.FileCriteriaVisitor;
-import org.maison.filefinder.model.criteria.SearchCriteria;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,12 +8,21 @@ import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.maison.filefinder.model.criteria.DuplicateSearchCriteria;
+import org.maison.filefinder.model.criteria.FileCriteriaVisitor;
+import org.maison.filefinder.model.criteria.SearchCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Classe qui effectue les recherches de fichiers avec les critères ajoutés.
  */
 public class FileSearchService implements SearchEngine {
 
+	private static Logger LOGGER = LoggerFactory.getLogger(FileSearchService.class.getName());
     //Criteres de recherche
     private List<SearchCriteria> criterias = new ArrayList<>();
     // Ecouteur de recherche
@@ -58,6 +62,7 @@ public class FileSearchService implements SearchEngine {
                 return;
             }
         }
+        LOGGER.error("Aucun critère de recherche n'a été saisi.");
         throw new FileFinderException("Aucun critère de recherche n'a été saisi.");
     }
 
@@ -85,6 +90,7 @@ public class FileSearchService implements SearchEngine {
      * @param filter
      */
     public void setFileExtensionFilter(String filter) {
+    	LOGGER.debug("Filtre d'extension de ficher:" + filter);
         this.filter = filter;
         boolean acceptAllFiles = filter.equals("*.*");
         String ext = filter.substring(2);
@@ -105,6 +111,7 @@ public class FileSearchService implements SearchEngine {
      * @param filterOnFilename
      */
     public void setFileFilter(String filterOnFilename) {
+    	LOGGER.debug("Filtre de nom de ficher:" + filterOnFilename);
         this.filter = filterOnFilename;
         List<SearchCriteria> activeCriteria = new ArrayList<>();
         for (SearchCriteria criteria : criterias) {
@@ -142,7 +149,7 @@ public class FileSearchService implements SearchEngine {
      * @throws FileFinderException
      */
     public void searchWithExtension(String directory, String extension) throws FileFinderException {
-        setSearchDirectory(directory);
+    	setSearchDirectory(directory);
         setFileExtensionFilter(extension);
         find();
     }
@@ -180,7 +187,7 @@ public class FileSearchService implements SearchEngine {
      */
 
     public void find() throws FileFinderException {
-
+    	
         if ("".equals(this.directory) && this.directory == null) {
             throw new FileFinderException("Le repertoire de recherche n'est pas valorisé.");
         }
@@ -197,6 +204,7 @@ public class FileSearchService implements SearchEngine {
                 throw new FileFinderException("L'extension de fichier '" + this.filter + "' est incorrecte.");
             }
         }
+        LOGGER.debug("Lancement de la recherche: find()");
         reset();
         explore();
     }
@@ -236,6 +244,7 @@ public class FileSearchService implements SearchEngine {
     }
 
     public void notifySearchStarted() {
+    	LOGGER.debug("Notification lancement de la recherche");
         for (SearchListener listener : listeners) {
             listener.reset();
         }
@@ -245,13 +254,14 @@ public class FileSearchService implements SearchEngine {
     }
 
     public void notifySearchEnded() {
+    	LOGGER.debug("Notification fin de la recherche");
         for (SearchListener listener : listeners) {
             listener.searchEnded();
         }
     }
 
     public void notifyFileFound(File root) {
-        //DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss").format(root.)
+    	LOGGER.debug("Fichier: " + root.getAbsolutePath());
         String dateCreation ="";
         try {
             FileTime creationTime = (FileTime) Files.getAttribute(Path.of(root.getAbsolutePath()), "creationTime");
@@ -266,6 +276,7 @@ public class FileSearchService implements SearchEngine {
     }
 
     public static void main(String[] args) {
+       
         FileSearchService finder = new FileSearchService();
         finder.setFileExtensionFilter("*.*");
         finder.setSearchDirectory("C:\\Tmp");

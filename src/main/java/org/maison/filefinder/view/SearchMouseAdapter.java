@@ -1,10 +1,12 @@
 package org.maison.filefinder.view;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 public class SearchMouseAdapter extends MouseAdapter {
 

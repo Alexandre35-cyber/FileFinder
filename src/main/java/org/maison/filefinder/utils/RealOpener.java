@@ -1,15 +1,17 @@
 package org.maison.filefinder.utils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RealOpener {
 
     private String explorer;
     private String editorPath;
     private String[] extensions;
-
+    private static Logger LOGGER = LoggerFactory.getLogger(RealOpener.class.getName());
+    
     public RealOpener(String explorer, String editorPath, String[] ext){
         this.explorer = explorer;
         this.editorPath = editorPath;
@@ -30,7 +32,7 @@ public class RealOpener {
         }
 
         if (forbiddenExt){
-            System.out.println("File:" + fileToOpen + "Explorer Path:" + this.explorer);
+        	LOGGER.debug("File:" + fileToOpen + "Explorer Path:" + this.explorer);
             File file = new File(fileToOpen);
             String directory = file.getParent();
             if (directory!=null) {
@@ -38,10 +40,10 @@ public class RealOpener {
             }
         } else {
             if (this.editorPath != null) {
-                System.out.println("File:" + fileToOpen + "Editor Path:" + this.editorPath);
+            	LOGGER.debug("File:" + fileToOpen + "Editor Path:" + this.editorPath);
                 Runtime.getRuntime().exec(new String[]{this.editorPath, fileToOpen});
             } else {
-                System.err.println("Pas d'editeur configuré.");
+            	LOGGER.debug("Pas d'editeur configuré.");
             }
         }
     }

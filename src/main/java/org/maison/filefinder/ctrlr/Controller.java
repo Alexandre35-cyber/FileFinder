@@ -1,14 +1,17 @@
 package org.maison.filefinder.ctrlr;
 
-import org.maison.filefinder.model.*;
-import org.maison.filefinder.utils.RealOpener;
-import org.maison.filefinder.view.MainWindow;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
+
+import org.maison.filefinder.model.FileFinderException;
+import org.maison.filefinder.model.FileOpener;
+import org.maison.filefinder.model.FileSearchService;
+import org.maison.filefinder.model.SearchListener;
+import org.maison.filefinder.utils.RealOpener;
+import org.maison.filefinder.view.MainWindow;
 
 
 /**

@@ -6,9 +6,12 @@ import org.maison.filefinder.model.criteria.DateSearchCriteria;
 import org.maison.filefinder.model.criteria.DuplicateSearchCriteria;
 import org.maison.filefinder.model.criteria.PatternSearchCriteria;
 import org.maison.filefinder.model.criteria.SizeSearchCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SearchConfiguration {
-
+	private static Logger LOGGER = LoggerFactory.getLogger(SearchConfiguration.class.getName());
+	
     public static void apply(FileSearchService service){
 
         service.addCriteria(new SizeSearchCriteria(-1,-1, FileSearchService.UNIT.KOS));
@@ -22,22 +25,22 @@ public class SearchConfiguration {
         service.addResultsListener(new SearchListener() {
             @Override
             public void searchStarted() {
-                System.out.println("ControllerStart...");
+            	LOGGER.debug("ControllerStart...");
             }
 
             @Override
             public void searchEnded() {
-                System.out.println("ControllersearchEnded Stop.");
+            	LOGGER.debug("ControllersearchEnded Stop.");
             }
 
             @Override
             public void addResult(String results, long size, String date) {
-                System.out.println("Fichier:" + results + " Taille:" + size + " Date:" + date);
+            	LOGGER.debug("Fichier:" + results + " Taille:" + size + " Date:" + date);
             }
 
             @Override
             public void reset() {
-                System.out.println("ControllerReset.");
+            	LOGGER.debug("ControllerReset.");
             }
         });
 

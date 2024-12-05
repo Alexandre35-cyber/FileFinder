@@ -1,20 +1,38 @@
 package org.maison.filefinder.view;
 
-import org.jdatepicker.JDatePicker;
-import org.maison.filefinder.model.criteria.*;
-
-import javax.swing.*;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.GregorianCalendar;
 
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+
+import org.jdatepicker.JDatePicker;
+import org.maison.filefinder.model.criteria.DateSearchCriteria;
+import org.maison.filefinder.model.criteria.DuplicateSearchCriteria;
+import org.maison.filefinder.model.criteria.PatternSearchCriteria;
+import org.maison.filefinder.model.criteria.SearchCriteria;
+import org.maison.filefinder.model.criteria.SearchCriteriaVisitor;
+import org.maison.filefinder.model.criteria.SizeSearchCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
     private JPanel panel;
-
+    private static Logger LOGGER = LoggerFactory.getLogger(GraphicalSearchCriteriaFactory.class.getName());
+    
     public JPanel getPanel(){
         return panel;
     }
@@ -129,16 +147,16 @@ public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
         switch (criteria.getChosenUnit()){
             case KOS:buttonKos.setEnabled(true);
                      buttonKos.doClick();
-                System.out.println("KOS");
+                LOGGER.debug("KOS");
                 break;
             case MOS: buttonMos.setEnabled(true);
-                System.out.println("MOS");
+            	LOGGER.debug("MOS");
                 break;
             case GOS: buttonGos.setEnabled(true);
-                System.out.println("GOS");
+            	LOGGER.debug("GOS");
                 break;
             default: buttonKos.setEnabled(true);
-                System.out.println("default");
+            	LOGGER.debug("default");
             break;
         }
 
@@ -165,9 +183,9 @@ public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
             public void actionPerformed(ActionEvent e) {
                 criteria.setActive(true);
                 GregorianCalendar c = (GregorianCalendar) pickerMin.getModel().getValue();
-                System.out.println("Date min YYYY:" + c.get(GregorianCalendar.YEAR));
-                System.out.println("Date min MM:" + (c.get(GregorianCalendar.MONTH)+1));
-                System.out.println("Date min DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
+                LOGGER.debug("Date min YYYY:" + c.get(GregorianCalendar.YEAR));
+                LOGGER.debug("Date min MM:" + (c.get(GregorianCalendar.MONTH)+1));
+                LOGGER.debug("Date min DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
                 try {
                     criteria.setMinDate(LocalDate.of(c.get(GregorianCalendar.YEAR),
                             (c.get(GregorianCalendar.MONTH)+1),
@@ -190,9 +208,9 @@ public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
             public void actionPerformed(ActionEvent e) {
                 criteria.setActive(true);
                 GregorianCalendar c = (GregorianCalendar) pickerMax.getModel().getValue();
-                System.out.println("Date max YYYY:" + c.get(GregorianCalendar.YEAR));
-                System.out.println("Date max MM:" + (c.get(GregorianCalendar.MONTH)+1));
-                System.out.println("Date max DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
+                LOGGER.debug("Date max YYYY:" + c.get(GregorianCalendar.YEAR));
+                LOGGER.debug("Date max MM:" + (c.get(GregorianCalendar.MONTH)+1));
+                LOGGER.debug("Date max DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
                 try {
                     criteria.setMaxDate(LocalDate.of(c.get(GregorianCalendar.YEAR),
                             (c.get(GregorianCalendar.MONTH)+1),

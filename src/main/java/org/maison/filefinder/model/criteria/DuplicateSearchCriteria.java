@@ -1,15 +1,17 @@
 package org.maison.filefinder.model.criteria;
 
-import org.maison.filefinder.model.DirectorySelectionListener;
-
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.maison.filefinder.model.DirectorySelectionListener;
 
 public class DuplicateSearchCriteria extends SearchCriteria implements DirectorySelectionListener {
     private List<String> filesList = new ArrayList<>();
     private Set<String> filesSet = new HashSet<>();
     private boolean searchEnded = false;
-
     @Override
     public String getName() {
         return "Recherche de doublons";
@@ -29,8 +31,8 @@ public class DuplicateSearchCriteria extends SearchCriteria implements Directory
         return filesSet.size() != filesList.size();
     }
 
-    public List<String> getDuplicates(){
-        List copyL = new ArrayList();
+	public List<String> getDuplicates(){
+        List<String> copyL = new ArrayList<String>();
         copyL.addAll(filesList);
 
         for (String s:filesSet){
@@ -62,7 +64,7 @@ public class DuplicateSearchCriteria extends SearchCriteria implements Directory
         searchEnded = false;
         exploreSubDirectory(root);
         searchEnded = true;
-        System.out.println("Liste " + filesList);
-        System.out.println("Set " + filesSet);
+        LOGGER.debug("Liste " + filesList);
+        LOGGER.debug("Set " + filesSet);
     }
 }

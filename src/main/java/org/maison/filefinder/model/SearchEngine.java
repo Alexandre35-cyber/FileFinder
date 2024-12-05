@@ -1,8 +1,8 @@
 package org.maison.filefinder.model;
 
-import org.maison.filefinder.model.criteria.SearchCriteria;
-
 import java.util.List;
+
+import org.maison.filefinder.model.criteria.SearchCriteria;
 
 public interface SearchEngine {
 
