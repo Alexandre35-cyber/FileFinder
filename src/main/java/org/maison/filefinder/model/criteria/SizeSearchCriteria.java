@@ -40,6 +40,8 @@ public class SizeSearchCriteria extends SearchCriteria {
             }
         }
         this.sizeMax = sizeMax;
+        LOGGER.debug("sizeMin " + sizeMin);
+        LOGGER.debug("sizeMax " + sizeMax);
     }
 
     public void setUnit(String choice) throws Exception{
@@ -53,9 +55,11 @@ public class SizeSearchCriteria extends SearchCriteria {
             default: chosenUnit = null;
                 break;
         }
+        
         if (chosenUnit == null){
             throw new Exception("Les seules valeurs possibles sont:[K,M,G] kilo, mega, giga octet");
         }
+        LOGGER.debug("chosenUnit " + chosenUnit);
     }
 
     public FileSearchService.UNIT getChosenUnit() {

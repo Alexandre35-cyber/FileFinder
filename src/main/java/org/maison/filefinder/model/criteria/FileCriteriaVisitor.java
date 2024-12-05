@@ -1,17 +1,19 @@
 package org.maison.filefinder.model.criteria;
 
+import java.io.File;
+import java.time.LocalDate;
+import java.util.Date;
+
 import org.maison.filefinder.model.FileFinderException;
 import org.maison.filefinder.model.FileSearchService;
 import org.maison.filefinder.model.PatternSearcher;
 import org.maison.filefinder.model.UserSelectionMgr;
 import org.maison.filefinder.utils.DateUtils;
-
-import java.io.File;
-import java.time.LocalDate;
-import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileCriteriaVisitor implements SearchCriteriaVisitor {
-
+	private static Logger LOGGER = LoggerFactory.getLogger(FileCriteriaVisitor.class.getName());
     private File currentFile;
     private boolean accepted = true;
 
@@ -76,7 +78,7 @@ public class FileCriteriaVisitor implements SearchCriteriaVisitor {
 
         if (criteria.isActive()){
             try {
-                System.out.println("visitPatternCriteria:" + currentFile);
+            	LOGGER.debug("visitPatternCriteria:" + currentFile);
 
               PatternSearcher pSearcher = new PatternSearcher(currentFile);
               /*if (pSearcher.isBinary()){
@@ -104,9 +106,9 @@ public class FileCriteriaVisitor implements SearchCriteriaVisitor {
                     //
                 }
             }
-            System.out.println("Fichier en cours " + currentFile);
+            LOGGER.debug("Fichier en cours " + currentFile);
           if (criteria.duplicatesFound()){
-              System.out.println("Duplicates found " + criteria.getDuplicates());
+        	  LOGGER.debug("Duplicates found " + criteria.getDuplicates());
               accepted = criteria.getDuplicates().contains(currentFile.getName());
             }
         }

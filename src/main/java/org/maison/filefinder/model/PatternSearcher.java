@@ -1,12 +1,15 @@
 package org.maison.filefinder.model;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PatternSearcher {
+	private static Logger LOGGER = LoggerFactory.getLogger(PatternSearcher.class.getName());
     private File currentFile;
     private boolean regExpMode;
 
@@ -34,7 +37,7 @@ public class PatternSearcher {
                 return false;
             } else{
                 for (String line: lines){
-                    System.out.println(">>>"+line);
+                	LOGGER.debug(">>>"+line);
                     if (line.length() == 1)
                             continue;
                     if (line.contains(pattern)) {
@@ -74,7 +77,7 @@ public class PatternSearcher {
             if (other == 0) return false;
 
             // Plus de 95% de autres caracteres
-            System.out.println("%bin " + 100 * other / (ascii + other));
+            LOGGER.debug("%bin " + 100 * other / (ascii + other));
             return 100 * other / (ascii + other) > 95;
         } catch (Exception e){
             return false;

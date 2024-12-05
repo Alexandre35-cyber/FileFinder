@@ -1,17 +1,28 @@
 package org.maison.filefinder.view;
 
-import org.maison.filefinder.model.Preferences;
-import org.maison.filefinder.model.TextualSearch;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
 
-import javax.swing.*;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.text.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+
+import org.maison.filefinder.model.Preferences;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class PreferencesDialog extends JDialog {
-
+	 private static Logger LOGGER = LoggerFactory.getLogger(PreferencesDialog.class.getName());
     private static String TITLE = "Preferences";
 
     private static Dimension DIMENSION = new Dimension(400,150);
@@ -80,7 +91,7 @@ public class PreferencesDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         buttonValidate.addActionListener(e -> {
-            System.out.println("Ok ");
+        	LOGGER.debug("Ok ");
             if (!"".equals(PreferencesDialog.this.txtField.getText())) {
                 this.search.setLignesMax(Integer.parseInt(PreferencesDialog.this.txtField.getText()));
                 PreferencesDialog.this.setVisible(false);

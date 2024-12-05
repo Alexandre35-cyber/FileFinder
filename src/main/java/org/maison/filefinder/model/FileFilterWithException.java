@@ -1,13 +1,15 @@
 package org.maison.filefinder.model;
 
-import org.maison.filefinder.model.criteria.FileCriteriaVisitor;
-import org.maison.filefinder.model.criteria.SearchCriteria;
-
 import java.io.File;
 import java.util.List;
 
-public class FileFilterWithException implements FileSearchService.FileExtensionFilter {
+import org.maison.filefinder.model.criteria.FileCriteriaVisitor;
+import org.maison.filefinder.model.criteria.SearchCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class FileFilterWithException implements FileSearchService.FileExtensionFilter {
+	private static Logger LOGGER = LoggerFactory.getLogger(FileFilterWithException.class.getName());
     private FileCriteriaVisitor vCriteria;
     boolean acceptAllFiles;
     private List<SearchCriteria> activeCriteria;
@@ -22,11 +24,13 @@ public class FileFilterWithException implements FileSearchService.FileExtensionF
         this.acceptAllFiles = acceptAllFiles;
         this.activeCriteria = activeCriteria;
         this.ext = ext;
+  
     }
 
     @Override
     public boolean accept(File currentFile) {
-        boolean fileAccepted = !currentFile.isDirectory() & currentFile.getName().endsWith(ext);
+        if ("*".equals(this.ext)) return true;
+        boolean fileAccepted = !currentFile.isDirectory() & ( currentFile.getName().endsWith(ext)|| "*".equals(this.ext));
         /*if (!this.acceptAllFiles) {
             fileAccepted &= currentFile.getName().endsWith(ext);
         }*/
@@ -35,18 +39,17 @@ public class FileFilterWithException implements FileSearchService.FileExtensionF
             vCriteria.visitStarted();
 
             for (SearchCriteria criteria : activeCriteria) {
-                System.out.println("Calcul Application de " + criteria.getName());
+            	LOGGER.debug("Calcul Application de " + criteria.getName());	
                 try {
                     criteria.accept(vCriteria);
                 } catch (Exception e) {
                     if (!this.shown) {
                         //JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur type de fichier", JOptionPane.ERROR_MESSAGE);
-                        System.out.println("BINAIRE currentFile " + currentFile.getAbsolutePath());
+                    	LOGGER.debug("BINAIRE currentFile " + currentFile.getAbsolutePath());
                         this.shown = true;
                     }
                 }
             }
-            System.out.println(currentFile.getAbsolutePath() + " " + vCriteria.isFileAccepted());
             vCriteria.visitEnded();
             return vCriteria.isFileAccepted();
         }

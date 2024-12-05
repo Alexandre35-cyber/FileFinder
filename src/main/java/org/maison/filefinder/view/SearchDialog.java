@@ -1,15 +1,27 @@
 package org.maison.filefinder.view;
 
-import org.maison.filefinder.model.TextualSearch;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import java.awt.*;
+
+import org.maison.filefinder.model.TextualSearch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class SearchDialog extends JDialog {
 
+	private static Logger LOGGER = LoggerFactory.getLogger(SearchDialog.class.getName());
+	
     private static String TITLE = "Rechercher";
 
     private static Dimension DIMENSION = new Dimension(400,150);
@@ -44,7 +56,7 @@ public class SearchDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         button.addActionListener(e -> {
-            System.out.println("Search "+txtField.getText());
+        	LOGGER.debug("Search " + txtField.getText());
             search.search(txtField.getText());
         });
 
@@ -67,7 +79,7 @@ public class SearchDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         buttonReset.addActionListener(e -> {
-            System.out.println("Effacer ");
+        	LOGGER.debug("Effacer ");
             search.resetTextualSearch();
         });
         getContentPane().add(buttonReset, c);
@@ -83,12 +95,12 @@ public class SearchDialog extends JDialog {
         SearchDialog dialog = new SearchDialog(f, new TextualSearch() {
             @Override
             public void search(String text) {
-                System.out.println("SearchDialog::Recherche de:" + text);
+            	LOGGER.debug("SearchDialog::Recherche de:" + text);
             }
 
             @Override
             public void resetTextualSearch() {
-                System.out.println("SearchDialog::Reset");
+            	LOGGER.debug("SearchDialog::Reset");
             }
         });
         dialog.setVisible(true);
