@@ -44,7 +44,6 @@ public class DateSearchCriteria extends SearchCriteria {
         LOGGER.info("minDate " + minDate);
         LOGGER.info("maxDate " + maxDate);
     }
-
     /**
      * Remise a zero des dates
      */
@@ -73,6 +72,7 @@ public class DateSearchCriteria extends SearchCriteria {
                 throw new Exception("La date " + minDate +" n'est pas anterieure à la date max " + maxDate);
             }
         }
+
         LOGGER.info("minDate " + minDate);
         LOGGER.info("maxDate " + maxDate);
     }

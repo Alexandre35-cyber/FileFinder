@@ -335,6 +335,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
                 File file = new File(textFieldDirectory.getText());
                 if (file.isDirectory() && file.exists()) {
                 	LOGGER.info("Repertoire entré: " + file.getAbsolutePath());
+
                     UserSelectionMgr.get().setDirectorySelected(textFieldDirectory.getText());
                 }else{
                     JOptionPane.showMessageDialog(MainWindow.this, "Le répertoire " + file.getAbsolutePath() + " n'existe pas." , "Directory does not exist", JOptionPane.ERROR_MESSAGE);
@@ -405,6 +406,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
                         }
                     } else {
                     	LOGGER.info("bad directory");
+
                     }
                 }
             };
@@ -450,6 +452,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
             LOGGER.info(textFinal);
             updateUI();
             LOGGER.info(">>>>>>>>>>>>>>>>>>MAINWINDOW END<<<<<<<<<<<<<<<<<");
+
             area.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
         }

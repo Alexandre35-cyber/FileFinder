@@ -1,5 +1,5 @@
 ''
-FileFinder
+The FileFinder tool !
 ''
 
 Ce logiciel permet une recherche récursive de fichiers par extensions

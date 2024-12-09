@@ -79,7 +79,7 @@ public class SearchDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         buttonReset.addActionListener(e -> {
-        	LOGGER.info("Effacer ");
+        LOGGER.info("Effacer ");
             search.resetTextualSearch();
         });
         getContentPane().add(buttonReset, c);
@@ -100,7 +100,9 @@ public class SearchDialog extends JDialog {
 
             @Override
             public void resetTextualSearch() {
-            	LOGGER.info("SearchDialog::Reset");
+
+           	LOGGER.info("SearchDialog::Reset");
+
             }
         });
         dialog.setVisible(true);

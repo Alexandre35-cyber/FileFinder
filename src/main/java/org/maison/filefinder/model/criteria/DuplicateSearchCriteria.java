@@ -66,5 +66,6 @@ public class DuplicateSearchCriteria extends SearchCriteria implements Directory
         searchEnded = true;
         LOGGER.info("Liste " + filesList);
         LOGGER.info("Set " + filesSet);
+
     }
 }

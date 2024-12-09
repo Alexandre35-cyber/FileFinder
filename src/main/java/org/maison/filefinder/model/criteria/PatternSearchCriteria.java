@@ -12,6 +12,7 @@ public class PatternSearchCriteria extends SearchCriteria {
     public void setPattern(String pattern) {
         this.pattern = pattern;
         LOGGER.info("Setting pattern " + pattern);
+
     }
 
     public boolean isRegexpEnabled(){

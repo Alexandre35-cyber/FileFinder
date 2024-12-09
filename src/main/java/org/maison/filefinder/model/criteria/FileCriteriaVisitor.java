@@ -106,9 +106,15 @@ public class FileCriteriaVisitor implements SearchCriteriaVisitor {
                     //
                 }
             }
+<<<<<<< HEAD
             LOGGER.info("Fichier en cours " + currentFile);
           if (criteria.duplicatesFound()){
         	  LOGGER.info("Duplicates found " + criteria.getDuplicates());
+=======
+            LOGGER.debug("Fichier en cours " + currentFile);
+          if (criteria.duplicatesFound()){
+        	  LOGGER.debug("Duplicates found " + criteria.getDuplicates());
+>>>>>>> 796a11a5fd289ded5df076ffc6cad7b3d59f969a
               accepted = criteria.getDuplicates().contains(currentFile.getName());
             }
         }

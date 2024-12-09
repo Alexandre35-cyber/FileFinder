@@ -59,7 +59,11 @@ public class SizeSearchCriteria extends SearchCriteria {
         if (chosenUnit == null){
             throw new Exception("Les seules valeurs possibles sont:[K,M,G] kilo, mega, giga octet");
         }
+<<<<<<< HEAD
         LOGGER.info("chosenUnit " + chosenUnit);
+=======
+        LOGGER.debug("chosenUnit " + chosenUnit);
+>>>>>>> 796a11a5fd289ded5df076ffc6cad7b3d59f969a
     }
 
     public FileSearchService.UNIT getChosenUnit() {

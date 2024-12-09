@@ -254,7 +254,7 @@ public class FileSearchService implements SearchEngine {
     }
 
     public void notifySearchEnded() {
-    	LOGGER.info("Notification fin de la recherche");
+    	LOGGER.debug("Notification fin de la recherche");
         for (SearchListener listener : listeners) {
             listener.searchEnded();
         }

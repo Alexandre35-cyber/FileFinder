@@ -40,6 +40,7 @@ public class FileFilterWithException implements FileSearchService.FileExtensionF
 
             for (SearchCriteria criteria : activeCriteria) {
             	LOGGER.info("Calcul Application de " + criteria.getName());	
+
                 try {
                     criteria.accept(vCriteria);
                 } catch (Exception e) {

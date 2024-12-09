@@ -33,6 +33,7 @@ public class RealOpener {
 
         if (forbiddenExt){
         	LOGGER.info("File:" + fileToOpen + "Explorer Path:" + this.explorer);
+
             File file = new File(fileToOpen);
             String directory = file.getParent();
             if (directory!=null) {
