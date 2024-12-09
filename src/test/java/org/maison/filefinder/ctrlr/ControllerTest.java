@@ -51,7 +51,7 @@ public class ControllerTest {
 		} catch (Exception e) {			
 		}	
 			
-		this.ctrlr.open(new URL("D:\\Projets\\JAVA\\ARKEA\\VENDREDI\\OperationServiceBack\\Dockerfile"));
+		this.ctrlr.open(new URL("file://" + "D:\\Projets\\JAVA\\ARKEA\\VENDREDI\\OperationServiceBack\\Dockerfile"));
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ public class ControllerTest {
 		fw.flush();
 		fw.close();
 		this.ctrlr.checkEditor();
-		this.ctrlr.open(new URL(fic));
+		this.ctrlr.open(new URL("file://"+fic));
 	}
 	
 

@@ -110,6 +110,7 @@ public class FileSearchServiceTest {
 
 	@Test
 	public void testRechercheAvecPbDeLignes() throws Exception {
+		TestUtils.creerFichierTexte("C:\\Tmp\\test.txt", "Urban");
 		service.addCriteria(new PatternSearchCriteria() {
 			@Override
 			public String getPattern() {
@@ -128,8 +129,8 @@ public class FileSearchServiceTest {
 
 		TheTestListener l = new TheTestListener();
 		service.addResultsListener(l);
-		service.searchWithFile("C:\\Tmp", "Bookmarks.bak");
-		Assert.assertTrue(l.check("C:\\Tmp\\Bookmarks.bak"));
+		service.searchWithFile("C:\\Tmp", "test.txt");
+		Assert.assertTrue(l.check("C:\\Tmp\\test.txt"));
 	}
 
 }

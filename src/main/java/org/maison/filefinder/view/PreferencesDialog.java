@@ -91,7 +91,7 @@ public class PreferencesDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         buttonValidate.addActionListener(e -> {
-        	LOGGER.debug("Ok ");
+        	LOGGER.info("Ok ");
             if (!"".equals(PreferencesDialog.this.txtField.getText())) {
                 this.search.setLignesMax(Integer.parseInt(PreferencesDialog.this.txtField.getText()));
                 PreferencesDialog.this.setVisible(false);

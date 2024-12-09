@@ -90,7 +90,7 @@ public class FileSearchService implements SearchEngine {
      * @param filter
      */
     public void setFileExtensionFilter(String filter) {
-    	LOGGER.debug("Filtre d'extension de ficher:" + filter);
+    	LOGGER.info("Filtre d'extension de ficher:" + filter);
         this.filter = filter;
         boolean acceptAllFiles = filter.equals("*.*");
         String ext = filter.substring(2);
@@ -111,7 +111,7 @@ public class FileSearchService implements SearchEngine {
      * @param filterOnFilename
      */
     public void setFileFilter(String filterOnFilename) {
-    	LOGGER.debug("Filtre de nom de ficher:" + filterOnFilename);
+    	LOGGER.info("Filtre de nom de ficher:" + filterOnFilename);
         this.filter = filterOnFilename;
         List<SearchCriteria> activeCriteria = new ArrayList<>();
         for (SearchCriteria criteria : criterias) {
@@ -204,7 +204,7 @@ public class FileSearchService implements SearchEngine {
                 throw new FileFinderException("L'extension de fichier '" + this.filter + "' est incorrecte.");
             }
         }
-        LOGGER.debug("Lancement de la recherche: find()");
+        LOGGER.info("Lancement de la recherche: find()");
         reset();
         explore();
     }
@@ -244,7 +244,7 @@ public class FileSearchService implements SearchEngine {
     }
 
     public void notifySearchStarted() {
-    	LOGGER.debug("Notification lancement de la recherche");
+    	LOGGER.info("Notification lancement de la recherche");
         for (SearchListener listener : listeners) {
             listener.reset();
         }
@@ -254,14 +254,14 @@ public class FileSearchService implements SearchEngine {
     }
 
     public void notifySearchEnded() {
-    	LOGGER.debug("Notification fin de la recherche");
+    	LOGGER.info("Notification fin de la recherche");
         for (SearchListener listener : listeners) {
             listener.searchEnded();
         }
     }
 
     public void notifyFileFound(File root) {
-    	LOGGER.debug("Fichier: " + root.getAbsolutePath());
+    	LOGGER.info("Fichier: " + root.getAbsolutePath());
         String dateCreation ="";
         try {
             FileTime creationTime = (FileTime) Files.getAttribute(Path.of(root.getAbsolutePath()), "creationTime");

@@ -56,7 +56,7 @@ public class SearchDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         button.addActionListener(e -> {
-        	LOGGER.debug("Search " + txtField.getText());
+        	LOGGER.info("Search " + txtField.getText());
             search.search(txtField.getText());
         });
 
@@ -79,7 +79,7 @@ public class SearchDialog extends JDialog {
         c.gridheight = 1;
         c.weightx = 0.5;
         buttonReset.addActionListener(e -> {
-        	LOGGER.debug("Effacer ");
+        	LOGGER.info("Effacer ");
             search.resetTextualSearch();
         });
         getContentPane().add(buttonReset, c);
@@ -95,12 +95,12 @@ public class SearchDialog extends JDialog {
         SearchDialog dialog = new SearchDialog(f, new TextualSearch() {
             @Override
             public void search(String text) {
-            	LOGGER.debug("SearchDialog::Recherche de:" + text);
+            	LOGGER.info("SearchDialog::Recherche de:" + text);
             }
 
             @Override
             public void resetTextualSearch() {
-            	LOGGER.debug("SearchDialog::Reset");
+            	LOGGER.info("SearchDialog::Reset");
             }
         });
         dialog.setVisible(true);

@@ -334,7 +334,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
                 }
                 File file = new File(textFieldDirectory.getText());
                 if (file.isDirectory() && file.exists()) {
-                	LOGGER.debug("Repertoire entré: " + file.getAbsolutePath());
+                	LOGGER.info("Repertoire entré: " + file.getAbsolutePath());
                     UserSelectionMgr.get().setDirectorySelected(textFieldDirectory.getText());
                 }else{
                     JOptionPane.showMessageDialog(MainWindow.this, "Le répertoire " + file.getAbsolutePath() + " n'existe pas." , "Directory does not exist", JOptionPane.ERROR_MESSAGE);
@@ -381,7 +381,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
 
     private boolean validatePath(String filepath){
         String regexp = "^(.*)[ ](.*)$";
-        LOGGER.debug("TEXT:" + filepath);
+        LOGGER.info("TEXT:" + filepath);
         if (filepath.matches(regexp)){
             JOptionPane.showMessageDialog(null,
                     "Les répertoires  un espace ne sont pas autorisés.",
@@ -401,10 +401,10 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
                    
                             launchSearch();
                         } else {
-                        	LOGGER.debug("bad filefilter");
+                        	LOGGER.info("bad filefilter");
                         }
                     } else {
-                    	LOGGER.debug("bad directory");
+                    	LOGGER.info("bad directory");
                     }
                 }
             };
@@ -447,9 +447,9 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
             String finTable = "</table></center>";
             String textFinal = "<html>" + text + builder.toString() + (builder.toString().contains("<table") ? finTable : "") + "<br><b>" + DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "-  Recherche terminée.</b></body></html>";
             area.setText(textFinal);
-            LOGGER.debug(textFinal);
+            LOGGER.info(textFinal);
             updateUI();
-            LOGGER.debug(">>>>>>>>>>>>>>>>>>MAINWINDOW END<<<<<<<<<<<<<<<<<");
+            LOGGER.info(">>>>>>>>>>>>>>>>>>MAINWINDOW END<<<<<<<<<<<<<<<<<");
             area.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
         }

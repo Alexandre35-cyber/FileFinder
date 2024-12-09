@@ -147,16 +147,16 @@ public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
         switch (criteria.getChosenUnit()){
             case KOS:buttonKos.setEnabled(true);
                      buttonKos.doClick();
-                LOGGER.debug("KOS");
+                LOGGER.info("KOS");
                 break;
             case MOS: buttonMos.setEnabled(true);
-            	LOGGER.debug("MOS");
+            	LOGGER.info("MOS");
                 break;
             case GOS: buttonGos.setEnabled(true);
-            	LOGGER.debug("GOS");
+            	LOGGER.info("GOS");
                 break;
             default: buttonKos.setEnabled(true);
-            	LOGGER.debug("default");
+            	LOGGER.info("default");
             break;
         }
 
@@ -183,9 +183,9 @@ public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
             public void actionPerformed(ActionEvent e) {
                 criteria.setActive(true);
                 GregorianCalendar c = (GregorianCalendar) pickerMin.getModel().getValue();
-                LOGGER.debug("Date min YYYY:" + c.get(GregorianCalendar.YEAR));
-                LOGGER.debug("Date min MM:" + (c.get(GregorianCalendar.MONTH)+1));
-                LOGGER.debug("Date min DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
+                LOGGER.info("Date min YYYY:" + c.get(GregorianCalendar.YEAR));
+                LOGGER.info("Date min MM:" + (c.get(GregorianCalendar.MONTH)+1));
+                LOGGER.info("Date min DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
                 try {
                     criteria.setMinDate(LocalDate.of(c.get(GregorianCalendar.YEAR),
                             (c.get(GregorianCalendar.MONTH)+1),
@@ -208,9 +208,9 @@ public class GraphicalSearchCriteriaFactory implements SearchCriteriaVisitor {
             public void actionPerformed(ActionEvent e) {
                 criteria.setActive(true);
                 GregorianCalendar c = (GregorianCalendar) pickerMax.getModel().getValue();
-                LOGGER.debug("Date max YYYY:" + c.get(GregorianCalendar.YEAR));
-                LOGGER.debug("Date max MM:" + (c.get(GregorianCalendar.MONTH)+1));
-                LOGGER.debug("Date max DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
+                LOGGER.info("Date max YYYY:" + c.get(GregorianCalendar.YEAR));
+                LOGGER.info("Date max MM:" + (c.get(GregorianCalendar.MONTH)+1));
+                LOGGER.info("Date max DD:" + (c.get(GregorianCalendar.DAY_OF_MONTH)));
                 try {
                     criteria.setMaxDate(LocalDate.of(c.get(GregorianCalendar.YEAR),
                             (c.get(GregorianCalendar.MONTH)+1),

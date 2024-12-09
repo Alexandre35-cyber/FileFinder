@@ -17,7 +17,7 @@ public class MainWindowTest {
 
     @Test
     public void testPremier() throws Exception {
-        String filepath = "file://C:/Program Files (x86)/Dell/UpdateService/Log/DCMServiceStartup.log";
+        String filepath = "file://C:/Windows/Cursors/aero_arrow.cur";
         MainWindow window = new MainWindow(new SearchEngine() {
             @Override
             public void reset() {
@@ -46,7 +46,7 @@ public class MainWindowTest {
         }, new FileOpener() {
             @Override
             public void open(URL fileToOpen) throws Exception {
-                Assert.assertFalse(filepath.equals(fileToOpen.toString()));
+                Assert.assertEquals(filepath,fileToOpen.toString());
             }
         });
 

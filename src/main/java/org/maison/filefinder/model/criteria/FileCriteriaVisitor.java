@@ -78,7 +78,7 @@ public class FileCriteriaVisitor implements SearchCriteriaVisitor {
 
         if (criteria.isActive()){
             try {
-            	LOGGER.debug("visitPatternCriteria:" + currentFile);
+            	LOGGER.info("visitPatternCriteria:" + currentFile);
 
               PatternSearcher pSearcher = new PatternSearcher(currentFile);
               /*if (pSearcher.isBinary()){
@@ -106,9 +106,9 @@ public class FileCriteriaVisitor implements SearchCriteriaVisitor {
                     //
                 }
             }
-            LOGGER.debug("Fichier en cours " + currentFile);
+            LOGGER.info("Fichier en cours " + currentFile);
           if (criteria.duplicatesFound()){
-        	  LOGGER.debug("Duplicates found " + criteria.getDuplicates());
+        	  LOGGER.info("Duplicates found " + criteria.getDuplicates());
               accepted = criteria.getDuplicates().contains(currentFile.getName());
             }
         }

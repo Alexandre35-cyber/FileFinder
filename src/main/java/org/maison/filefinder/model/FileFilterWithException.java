@@ -39,13 +39,13 @@ public class FileFilterWithException implements FileSearchService.FileExtensionF
             vCriteria.visitStarted();
 
             for (SearchCriteria criteria : activeCriteria) {
-            	LOGGER.debug("Calcul Application de " + criteria.getName());	
+            	LOGGER.info("Calcul Application de " + criteria.getName());	
                 try {
                     criteria.accept(vCriteria);
                 } catch (Exception e) {
                     if (!this.shown) {
                         //JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur type de fichier", JOptionPane.ERROR_MESSAGE);
-                    	LOGGER.debug("BINAIRE currentFile " + currentFile.getAbsolutePath());
+                    	LOGGER.info("BINAIRE currentFile " + currentFile.getAbsolutePath());
                         this.shown = true;
                     }
                 }

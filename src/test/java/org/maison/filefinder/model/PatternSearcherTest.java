@@ -43,14 +43,14 @@ public class PatternSearcherTest {
 
     @Test
     public void testIsBinary() throws Exception {
-        String binaryFile = "C:\\Program Files (x86)\\Java\\jdk1.6.0_37\\bin\\java.exe";
+        String binaryFile = "C:\\\\Windows\\\\regedit.exe";
         Assert.assertTrue(PatternSearcher.isBinary(new File(binaryFile)));
         Assert.assertFalse(PatternSearcher.isBinary(new File("C:\\Tmp\\test.txt")));
     }
 
     @Test
     public void binaryFileTest(){
-        String binaryFile = "C:\\Program Files (x86)\\Java\\jdk1.6.0_37\\bin\\java.exe";
+        String binaryFile = "C:\\Windows\\regedit.exe";
         try {
             PatternSearcher searcher = new PatternSearcher(new File(binaryFile));
            Assert.fail("Should fail");

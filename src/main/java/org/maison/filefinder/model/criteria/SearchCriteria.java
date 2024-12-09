@@ -14,7 +14,7 @@ public abstract class SearchCriteria {
     }
 
     public void setActive(boolean active){
-    	LOGGER.debug("Application du critère " + getName() + " " + active);
+    	LOGGER.info("Application du critère " + getName() + " " + active);
         this.active = active;
     }
 

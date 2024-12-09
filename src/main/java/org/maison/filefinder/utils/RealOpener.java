@@ -32,7 +32,7 @@ public class RealOpener {
         }
 
         if (forbiddenExt){
-        	LOGGER.debug("File:" + fileToOpen + "Explorer Path:" + this.explorer);
+        	LOGGER.info("File:" + fileToOpen + "Explorer Path:" + this.explorer);
             File file = new File(fileToOpen);
             String directory = file.getParent();
             if (directory!=null) {
@@ -40,10 +40,10 @@ public class RealOpener {
             }
         } else {
             if (this.editorPath != null) {
-            	LOGGER.debug("File:" + fileToOpen + "Editor Path:" + this.editorPath);
+            	LOGGER.info("File:" + fileToOpen + "Editor Path:" + this.editorPath);
                 Runtime.getRuntime().exec(new String[]{this.editorPath, fileToOpen});
             } else {
-            	LOGGER.debug("Pas d'editeur configuré.");
+            	LOGGER.info("Pas d'editeur configuré.");
             }
         }
     }
