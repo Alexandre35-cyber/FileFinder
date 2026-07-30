@@ -37,7 +37,7 @@ public class PatternSearcher {
                 return false;
             } else{
                 for (String line: lines){
-                	LOGGER.debug(">>>"+line);
+                	LOGGER.info(">>>"+line);
                     if (line.length() == 1)
                             continue;
                     if (line.contains(pattern)) {
@@ -77,7 +77,7 @@ public class PatternSearcher {
             if (other == 0) return false;
 
             // Plus de 95% de autres caracteres
-            LOGGER.debug("%bin " + 100 * other / (ascii + other));
+            LOGGER.info("%bin " + 100 * other / (ascii + other));
             return 100 * other / (ascii + other) > 95;
         } catch (Exception e){
             return false;

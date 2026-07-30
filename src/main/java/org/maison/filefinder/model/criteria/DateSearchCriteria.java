@@ -18,8 +18,8 @@ public class DateSearchCriteria extends SearchCriteria {
     public DateSearchCriteria(LocalDate minDate, LocalDate maxDate) {
         this.minDate = minDate;
         this.maxDate = maxDate;
-        LOGGER.debug("minDate " + minDate);
-        LOGGER.debug("maxDate " + maxDate);
+        LOGGER.info("minDate " + minDate);
+        LOGGER.info("maxDate " + maxDate);
     }
 
     /**
@@ -41,10 +41,9 @@ public class DateSearchCriteria extends SearchCriteria {
                 throw new Exception("La date " + minDate +" n'est pas anterieure à la date max " + maxDate);
             }
         }
-        LOGGER.debug("minDate " + minDate);
-        LOGGER.debug("maxDate " + maxDate);
+        LOGGER.info("minDate " + minDate);
+        LOGGER.info("maxDate " + maxDate);
     }
-
     /**
      * Remise a zero des dates
      */
@@ -73,8 +72,9 @@ public class DateSearchCriteria extends SearchCriteria {
                 throw new Exception("La date " + minDate +" n'est pas anterieure à la date max " + maxDate);
             }
         }
-        LOGGER.debug("minDate " + minDate);
-        LOGGER.debug("maxDate " + maxDate);
+
+        LOGGER.info("minDate " + minDate);
+        LOGGER.info("maxDate " + maxDate);
     }
 
     /**

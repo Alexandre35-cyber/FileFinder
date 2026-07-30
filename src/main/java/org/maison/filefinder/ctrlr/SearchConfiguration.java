@@ -25,22 +25,22 @@ public class SearchConfiguration {
         service.addResultsListener(new SearchListener() {
             @Override
             public void searchStarted() {
-            	LOGGER.debug("ControllerStart...");
+            	LOGGER.info("ControllerStart...");
             }
 
             @Override
             public void searchEnded() {
-            	LOGGER.debug("ControllersearchEnded Stop.");
+            	LOGGER.info("ControllersearchEnded Stop.");
             }
 
             @Override
             public void addResult(String results, long size, String date) {
-            	LOGGER.debug("Fichier:" + results + " Taille:" + size + " Date:" + date);
+            	LOGGER.info("Fichier:" + results + " Taille:" + size + " Date:" + date);
             }
 
             @Override
             public void reset() {
-            	LOGGER.debug("ControllerReset.");
+            	LOGGER.info("ControllerReset.");
             }
         });
 
