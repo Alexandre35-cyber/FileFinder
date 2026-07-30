@@ -2,6 +2,7 @@ package org.maison.filefinder.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
@@ -216,6 +217,7 @@ public class FileSearchService implements SearchEngine {
         File root = new File(this.directory);
         exploreSubDirectory(root);
         notifySearchEnded();
+        stopSearch = false;
     }
 
     /**
@@ -231,7 +233,7 @@ public class FileSearchService implements SearchEngine {
                 exploreSubDirectory(f);
             }
         } else {
-            //Lance les criteres de recherche
+            //Test l extension de fichier
             if (this.extensionFilter.accept(root)) {
                 notifyFileFound(root);
             }
@@ -264,7 +266,7 @@ public class FileSearchService implements SearchEngine {
     	LOGGER.debug("Fichier: " + root.getAbsolutePath());
         String dateCreation ="";
         try {
-            FileTime creationTime = (FileTime) Files.getAttribute(Path.of(root.getAbsolutePath()), "creationTime");
+            FileTime creationTime = (FileTime) Files.getAttribute(FileSystems.getDefault().getPath(root.getAbsolutePath()), "creationTime");
             dateCreation = creationTime.toString();
         } catch (IOException ex) {
             // handle exception
@@ -278,8 +280,8 @@ public class FileSearchService implements SearchEngine {
     public static void main(String[] args) {
        
         FileSearchService finder = new FileSearchService();
-        finder.setFileExtensionFilter("*.*");
-        finder.setSearchDirectory("C:\\Tmp");
+        finder.setFileExtensionFilter("*.dll");
+        finder.setSearchDirectory("C:\\Windows\\system32");
 /*
         finder.addCriteria(new SizeSearchCriteria(0, 10, UNIT.KOS));
 
@@ -288,14 +290,14 @@ public class FileSearchService implements SearchEngine {
         finder.addCriteria(new DateSearchCriteria(dateMin, dateMax));
 
         finder.addCriteria(new PatternSearchCriteria());
-*/
+
         DuplicateSearchCriteria criteria = new DuplicateSearchCriteria();
         finder.addCriteria(criteria);
         criteria.directorySelected("C:\\Tmp");
         criteria.setActive(true);
 
         System.out.println(criteria.getDuplicates());
-
+*/
         finder.addResultsListener(new SearchListener() {
             @Override
             public void searchStarted() {
@@ -310,7 +312,7 @@ public class FileSearchService implements SearchEngine {
             @Override
             public void addResult(String results, long size, String date) {
                 date = date.replaceAll("T"," ");
-                System.out.println("°°°°°°°°°°°°°°°°°°°°°°°FileFinder::Resultat:" + results + " " + date.substring(0,date.indexOf('.')));
+                System.out.println("°°°°°°°°°°°°°°°°°°°°°°°FileFinder::Resultat:" + results + " " + date.toString());
             }
 
             @Override
@@ -320,6 +322,8 @@ public class FileSearchService implements SearchEngine {
         });
 
         try {
+            finder.find();
+            Thread.sleep(5000);
             finder.find();
         } catch (Exception e) {
             e.printStackTrace();

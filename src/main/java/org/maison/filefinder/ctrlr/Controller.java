@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
-import org.maison.filefinder.model.FileFinderException;
-import org.maison.filefinder.model.FileOpener;
-import org.maison.filefinder.model.FileSearchService;
-import org.maison.filefinder.model.SearchListener;
+import org.maison.filefinder.model.*;
+import org.maison.filefinder.model.criteria.SearchCriteria;
 import org.maison.filefinder.utils.RealOpener;
 import org.maison.filefinder.view.MainWindow;
 
@@ -18,7 +18,7 @@ import org.maison.filefinder.view.MainWindow;
  * Controleur de l application.
  * Responsable de lancer les recherches.
  */
-public class Controller implements FileOpener {
+public class Controller implements FileOpener, SearchEngine {
 
     private FileSearchService finder;
     private MainWindow window;
@@ -33,6 +33,11 @@ public class Controller implements FileOpener {
     	this.configFile = configFile;
     }
 
+    @Override
+    public void reset() {
+        finder.reset();
+    }
+
     /**
      * Methode de lancement de la recherche à partir d'une extension de fichier
      * @param directory
@@ -40,7 +45,7 @@ public class Controller implements FileOpener {
      * @throws FileFinderException
      */
     public void searchWithExtension(String directory, String extension) throws FileFinderException{
-    	finder.searchWithExtension(directory, extension);
+        	finder.searchWithExtension(directory, extension);
     }
 
     /**
@@ -51,6 +56,16 @@ public class Controller implements FileOpener {
      */
     public void searchWithFile(String directory, String filename) throws FileFinderException{
     	finder.searchWithFile(directory, filename);
+    }
+
+    @Override
+    public List<SearchCriteria> getCriterias() {
+        return finder.getCriterias();
+    }
+
+    @Override
+    public void stopSearch() {
+        finder.stopSearch();
     }
 
     /**
@@ -70,7 +85,7 @@ public class Controller implements FileOpener {
 
         SearchConfiguration.apply(finder);
 
-        window = new MainWindow(finder, this);
+        window = new MainWindow(this);
 
         finder.addResultsListener(window);
     }

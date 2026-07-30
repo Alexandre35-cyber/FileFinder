@@ -2,6 +2,7 @@ package org.maison.filefinder.view;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.maison.filefinder.ctrlr.Controller;
 import org.maison.filefinder.model.FileFinderException;
 import org.maison.filefinder.model.FileOpener;
 import org.maison.filefinder.model.SearchEngine;
@@ -17,8 +18,8 @@ public class MainWindowTest {
 
     @Test
     public void testPremier() throws Exception {
-        String filepath = "file://C:/Program Files (x86)/Dell/UpdateService/Log/DCMServiceStartup.log";
-        MainWindow window = new MainWindow(new SearchEngine() {
+        String filepath = "file://C:/Windows/regedit.exe";
+        MainWindow window = new MainWindow(new Controller() {
             @Override
             public void reset() {
 
@@ -43,8 +44,6 @@ public class MainWindowTest {
             public void stopSearch() {
 
             }
-        }, new FileOpener() {
-            @Override
             public void open(URL fileToOpen) throws Exception {
                 Assert.assertFalse(filepath.equals(fileToOpen.toString()));
             }

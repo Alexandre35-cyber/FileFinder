@@ -40,6 +40,7 @@ import javax.swing.text.Document;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
 
+import org.maison.filefinder.ctrlr.Controller;
 import org.maison.filefinder.model.FileFinderException;
 import org.maison.filefinder.model.FileOpener;
 import org.maison.filefinder.model.Preferences;
@@ -64,7 +65,8 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
     private JTextField textFieldDirectory;
     private JTextField textFieldFilter;
     private JEditorPane area;
-    private SearchEngine engine;
+   // private SearchEngine engine;
+    private Controller controller;
     private StringBuilder builder = new StringBuilder();
     private ActionListener listener;
     private int cpt = -1;
@@ -81,10 +83,10 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
     private FileOpener opener;
     private PreferencesDialog prefsDialog;
 
-    public MainWindow(SearchEngine engine, FileOpener opener) {
+    public MainWindow(Controller controller) {
         super(TITLE);
         this.opener = opener;
-        this.engine = engine;
+        this.controller = controller;
         setPreferredSize(DIMENSION);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -172,7 +174,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
         // c.insets = new Insets(10,10,10,10);
 
         GraphicalSearchCriteriaFactory f = new GraphicalSearchCriteriaFactory();
-        for (SearchCriteria criteria : engine.getCriterias()) {
+        for (SearchCriteria criteria : controller.getCriterias()) {
             try {
                 criteria.accept(f);
             } catch (Exception e) {
@@ -414,12 +416,13 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
 
     public void launchSearch() {
         try {
-            this.engine.reset();
+            endForced = false;
+            this.controller.reset();
             area.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             if (textFieldFilter.getText().contains("*.")) {
-                this.engine.searchWithExtension(textFieldDirectory.getText(), textFieldFilter.getText());
+                this.controller.searchWithExtension(textFieldDirectory.getText(), textFieldFilter.getText());
             } else {
-                this.engine.searchWithFile(textFieldDirectory.getText(), textFieldFilter.getText());
+                this.controller.searchWithFile(textFieldDirectory.getText(), textFieldFilter.getText());
             }
 
 
@@ -516,7 +519,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
 
     public void forceEnd() {
         endForced = false;
-        engine.stopSearch();
+        controller.stopSearch();
         searchEnded();
         endForced = true;
     }
