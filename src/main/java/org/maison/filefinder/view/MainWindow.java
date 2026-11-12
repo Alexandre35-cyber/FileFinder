@@ -80,12 +80,10 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
     private int lignesMax = MAX_RESULTS;
     int pos = 0;
     int nbOccurences = 0;
-    private FileOpener opener;
     private PreferencesDialog prefsDialog;
 
     public MainWindow(Controller controller) {
         super(TITLE);
-        this.opener = opener;
         this.controller = controller;
         setPreferredSize(DIMENSION);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -263,7 +261,7 @@ public class MainWindow extends JFrame implements SearchListener, TextualSearch,
                             }
                             //Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "+ e.getURL());                            
 
-                            MainWindow.this.opener.open(e.getURL());
+                            MainWindow.this.controller.open(e.getURL());
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
